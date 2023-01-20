@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
-    <title>App Name: A Coding Challenge</title>
+    <title>Foresight Mortgage: A Coding Challenge</title>
 
     <!-- favicon -->
     <link rel="shortcut icon" href="/img/logo-favicon.PNG" type="image/x-icon">
@@ -32,7 +32,7 @@
                 <a class="navbar-brand" href="#">
                     <img src="/img/curtis-henley-low-resolution-logo-color-on-transparent-background.png" height="50px"
                         alt="Curtis Henley logo">
-                    App Name
+                    Foresight Mortgage
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -54,7 +54,7 @@
                         </li>
                         <li class="nav-item">
                             <!-- MAKE SURE LINK MATCHES REPO OF APP BEING DEMO'D -->
-                            <a class="nav-link" href="https://github.com/curtisdhenley?tab=repositories"
+                            <a class="nav-link" href="https://github.com/curtisdhenley/js-foresight-mortgage"
                                 target="_blank">The Repo</a>
                         </li>
                         <li class="nav-item">
@@ -70,9 +70,46 @@
     </header>
 
     <main class="content container">
-        <h1>APP UI GOES HERE</h1>
-        <input type="text" id="message" placeholder="Enter a Message...">
-        <button class="btn btn-primary" type="button" id="btnSubmit">Display a message</button>
+        <div class="row d-flex justify-content-between">
+            <div class="text-center">
+                <h1>Foresight Mortgage</h1>
+                <h2>Loan Calculator</h2>
+            </div>
+            <div class="col-12 col-md-3 border border-dark border-2">
+                <form action="#">
+                    <label class="fs-5 col-form-label" for="amount">Loan Amount</label>
+                    <input class="form-control" type="number" placeholder="Amount" id="amount">
+                    <label class="fs-5 col-form-label" for="term">Term (Months)</label>
+                    <input class="form-control" type="number" placeholder="Term" id="term">
+                    <label class="fs-5 col-form-label" for="rate">Interest Rate</label>
+                    <input class="form-control" type="number" placeholder="Rate" id="rate">
+                </form>
+            </div>
+            <div class="col-12 col-md-8 border border-dark border-2">
+                <h2 class="text-center">Your Monthly Payments</h2>
+                <div id="monthly-payment" class="text-center mt-4 display-5">
+                    <!-- calculated payment will go here -->
+                    $0.00
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped border border-2">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Month</th>
+                        <th>Payment</th>
+                        <th>Principal</th>
+                        <th>Interest</th>
+                        <th>Total Interest</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody id="eventTableBody">
+                    <!-- table template goes here -->
+                </tbody>
+            </table>
+        </div>
     </main>
 
     <footer class="container-fluid mt-5">

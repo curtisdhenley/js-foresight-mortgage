@@ -4,7 +4,7 @@ function displayMsg() {
     Swal.fire(
         {
             backdrop: false,
-            title: 'App Name',
+            title: 'Foresight Mortgage',
             text: msg
         }
     );
