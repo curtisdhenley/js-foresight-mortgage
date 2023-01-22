@@ -91,7 +91,7 @@
                             <input class="form-control" type="number" placeholder="Rate" id="rate">
                         </div>
                         <div class="mt-5 text-end">
-                            <button type="button" class="btn btn-secondary" onclick="displayBalances()">Calculate</button>
+                            <button type="button" class="btn btn-secondary" onclick="getUserInput()">Calculate</button>
                         </div>
                     </div>
                 </form>
@@ -169,12 +169,12 @@
     <!-- table row template -->
     <template id="mortgageTableRowTemplate">
         <tr>
-            <td data-id="month">Month</td>
-            <td data-id="payment">Payment</td>
-            <td data-id="principal">Principal</td>
-            <td data-id="interest">Interest</td>
-            <td data-id="totalInterest">Total Interest</td>
-            <td data-id="balance">Balance</td>
+            <td data-id="month"></td>
+            <td data-id="payment"></td>
+            <td data-id="principal"></td>
+            <td data-id="interest"></td>
+            <td data-id="totalInterest"></td>
+            <td data-id="balance"></td>
         </tr>
     </template>
 
