@@ -1,7 +1,21 @@
 function getUserInput() {
     let loanAmount = document.getElementById('loanAmount').value;
-    let term = document.getElementById('term').value;
-    let rate = document.getElementById('rate').value;
+    let term = document.getElementById('term').value.toLocaleString(
+        'en-US', {
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0
+    }
+    );
+    let rate = document.getElementById('rate').value.toLocaleString(
+        'en-US', {
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0
+    }
+    )
+
+    loanAmount = parseFloat(loanAmount);
+    term = parseFloat(term);
+    rate = parseFloat(rate);
 
     calculateAmounts(loanAmount, term, rate);
 }
@@ -69,6 +83,7 @@ function displayBalances(balancesArr) {
 function displayPaymentData(balancesArr) {
     let tableBody = document.getElementById('mortgageTableBody');
     const tableRowTemplate = document.getElementById('mortgageTableRowTemplate');
+    let totalInterest = 0;
 
     tableBody.innerHTML = '';
 
@@ -86,24 +101,44 @@ function displayPaymentData(balancesArr) {
             minimumFractionDigits: 0
         }
         );
-        
-        // (balancesArr['Loan Amount'] * (balancesArr['Loan Interest Rate'] / 1200) / (1 - (1 + balancesArr['Loan Interest Rate'] / 1200) ** (-balancesArr['Loan Terms'])));
 
         // principal
         balancesArr['Principal Payment'] = (balancesArr['Monthly Payment'] - (balancesArr['Remaining Balance'] * (balancesArr['Loan Interest Rate'] / 1200)));
-        tableCells[2].innerHTML = balancesArr['Principal Payment'];
+        tableCells[2].innerHTML = balancesArr['Principal Payment'].toLocaleString(
+            'en-US', {
+            maximumFractionDigits: 0,
+            minimumFractionDigits: 0
+        }
+        );
 
         // interest
         balancesArr['Interest Payment'] = balancesArr['Remaining Balance'] * (balancesArr['Loan Interest Rate'] / 1200);
-        tableCells[3].innerHTML = balancesArr['Interest Payment'];
-
+        tableCells[3].innerHTML = balancesArr['Interest Payment'].toLocaleString(
+            'en-US', {
+            maximumFractionDigits: 0,
+            minimumFractionDigits: 0
+        }
+        );
+        
         // total interest
-        tableCells[4].innerHTML = balancesArr['Interest Payment'];
-
+        totalInterest += parseFloat(balancesArr['Interest Payment']);
+        tableCells[4].innerHTML = totalInterest.toLocaleString(
+            'en-US', {
+            maximumFractionDigits: 0,
+            minimumFractionDigits: 0
+        }
+        );
+        
+        
         // balance
         balancesArr['New Remaining Balance'] = balancesArr['Remaining Balance'] - balancesArr['Principal Payment'];
-        tableCells[5].innerHTML = balancesArr['New Remaining Balance']; 
-
+        tableCells[5].innerHTML = balancesArr['New Remaining Balance'].toLocaleString(
+            'en-US', {
+            maximumFractionDigits: 0,
+            minimumFractionDigits: 0
+        }
+        ); 
+        
         tableBody.appendChild(eventRow);
         balancesArr['Remaining Balance'] = balancesArr['New Remaining Balance'];
     }
