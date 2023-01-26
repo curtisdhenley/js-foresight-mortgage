@@ -80,15 +80,15 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <label class="fs-5 col-form-label" for="loanAmount">Loan Amount</label>
-                            <input class="form-control" type="number" placeholder="Loan Amount" id="loanAmount">
+                            <input class="form-control" type="number" placeholder="Loan Amount" id="loanAmount" required>
                         </div>
                         <div class="col">
                             <label class="fs-5 col-form-label" for="term">Term (Months)</label>
-                            <input class="form-control" type="number" placeholder="Term" id="term">
+                            <input class="form-control" type="number" placeholder="Term" id="term" required>
                         </div>
                         <div class="col">
                             <label class="fs-5 col-form-label" for="rate">Interest Rate</label>
-                            <input class="form-control" type="number" placeholder="Rate" id="rate">
+                            <input class="form-control" type="number" placeholder="Rate" id="rate" required>
                         </div>
                         <div class="mt-5 text-end">
                             <button type="button" class="btn btn-secondary" onclick="getUserInput()">Calculate</button>
@@ -100,24 +100,24 @@
                 <h2 class="text-center">Your Monthly Payments</h2>
                 <div class="text-center mt-4 display-5">
                     <!-- calculated payment will go here -->
-                    $<span id="monthly-payment">0.00</span> 
+                    <span id="monthly-payment">0.00</span> 
                 </div>
                 <div class="d-flex justify-content-between">
                     <p>Total Principal</p>
                     <p>
-                        $<span id="total-principal">0.00</span>
+                        <span id="total-principal">0.00</span>
                     </p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <p>Total Interest</p>
                     <p>
-                        $<span id="total-interest">0.00</span>
+                        <span id="total-interest">0.00</span>
                     </p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <p>Total Cost</p>
                     <p>
-                        $<span id="total-cost">0.00</span>
+                        <span id="total-cost">0.00</span>
                     </p>
                 </div>
             </div>
@@ -189,10 +189,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- JS Scripts -->
-    <script src="/js/site.js"></script>
-    <script>
-        document.getElementById('btnSubmit').addEventListener('click', displayMsg);
-    </script>
+    <script src="/js/site-copy.js"></script>
 </body>
 
 </html>

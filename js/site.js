@@ -1,3 +1,4 @@
+// keep this function simple. only grab inputs
 function getUserInput() {
     let loanAmount = document.getElementById('loanAmount').value;
     let term = document.getElementById('term').value.toLocaleString(
@@ -19,7 +20,7 @@ function getUserInput() {
 
     calculateAmounts(loanAmount, term, rate);
 }
-
+// should handle calculation and validation
 function calculateAmounts(amount, term, rate) {
 
     // total monthly payment = (amount loaned) * (rate/1200)/(1-(1 + rate/1200)(-number of months))
@@ -37,6 +38,7 @@ function calculateAmounts(amount, term, rate) {
     // at end of each month, remaining balance = previous remaining balance - principal payments
     let newRemainBalance = remainingBalance - principalPayment;
 
+// refactor property naming case. aim for dot notation
     let loanParts = {
         'Loan Amount': amount,
         'Loan Term': term,
@@ -51,7 +53,8 @@ function calculateAmounts(amount, term, rate) {
     displayPaymentData(loanParts);
 
 }
-
+// keep param and argument name the same
+// display functions should only be displaying and not calculating
 function displayBalances(balancesArr) {
 
     document.getElementById('monthly-payment').innerHTML = balancesArr['Monthly Payment'].toLocaleString(
@@ -79,7 +82,8 @@ function displayBalances(balancesArr) {
     }
     );
 }
-
+// keep param and argument name the same
+// display functions should only be displaying and not calculating
 function displayPaymentData(balancesArr) {
     let tableBody = document.getElementById('mortgageTableBody');
     const tableRowTemplate = document.getElementById('mortgageTableRowTemplate');
@@ -131,6 +135,7 @@ function displayPaymentData(balancesArr) {
         
         
         // balance
+        // make sure value is absolute
         balancesArr['New Remaining Balance'] = balancesArr['Remaining Balance'] - balancesArr['Principal Payment'];
         tableCells[5].innerHTML = balancesArr['New Remaining Balance'].toLocaleString(
             'en-US', {
