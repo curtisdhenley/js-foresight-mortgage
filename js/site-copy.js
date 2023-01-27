@@ -62,12 +62,12 @@ function displayMortgageData(loanPayments, principal) {
     
     tableBody.innerHTML = '';
 
-    for (let i = 1; i <= loanPayments.length; i++) {
+    for (let i = 0; i <= loanPayments.length - 1; i++) {
         let eventRow = document.importNode(tableRowTemplate.content, true);
         let tableCells = eventRow.querySelectorAll('td');
         
         // month
-        tableCells[0].innerHTML = i;
+        tableCells[0].innerHTML = i + 1;
         
         // payment
         tableCells[1].innerHTML = formatCurrency(loanPayments[i].monthlyPayment);
