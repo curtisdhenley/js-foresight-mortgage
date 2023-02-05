@@ -85,7 +85,9 @@
                             let term = parseInt(document.getElementById('term').value);
                             let rate = parseFloat(document.getElementById('rate').value);
                             
-                            if (Number.isInteger(principal) && Number.isInteger(term) && Number.isInteger(rate)) {
+                            if (Number.isInteger(principal) 
+                            && Number.isInteger(term) 
+                            && Number.isInteger(rate)) {
                                 calculateAmounts(principal, term, rate);
                             } else {
                                 alert('Please enter valid numbers');
@@ -96,8 +98,10 @@
                         // calculates amounts and stores them in an object
                         function calculateAmounts(principal, term, rate) {
                         
-                            // total monthly payment = (amount loaned) * (rate/1200) / (1-(1 + rate/1200)(-number of months))
-                            let monthlyPayment = (principal * (rate / 1200)) / (1 - Math.pow(1 + rate / 1200, -term));
+                            // total monthly payment = 
+                            // (amount loaned) * (rate/1200) / (1-(1 + rate/1200)(-number of months))
+                            let monthlyPayment = 
+                            (principal * (rate / 1200)) / (1 - Math.pow(1 + rate / 1200, -term));
                             
                             let remainingBalance = principal;
                             let interestPayment = 0;
@@ -116,7 +120,8 @@
                                 // principal payment = total monthly payment - interest payment 
                                 principalPayment = monthlyPayment - interestPayment; 
 
-                                // at end of each month, remaining balance = previous remaining balance - principal payments 
+                                // at end of each month, remaining balance = 
+                                // previous remaining balance - principal payments 
                                 remainingBalance -= principalPayment 
                                 let payment = { 
                                     month: month, 
@@ -132,10 +137,12 @@
                             displayMortgageData(loanPayments, principal); 
                         }
 
-                        // iterates through the array that's passed in and displays the values on the screen
+                        // iterates through the array that's passed in 
+                        // and displays the values on the screen
                         function displayMortgageData(loanPayments, principal) {
                             let tableBody = document.getElementById('mortgageTableBody');
-                            const tableRowTemplate = document.getElementById('mortgageTableRowTemplate');
+                            const tableRowTemplate = 
+                            document.getElementById('mortgageTableRowTemplate');
                             
                             tableBody.innerHTML = '';
 
@@ -147,21 +154,27 @@
                                 tableCells[0].innerHTML = i;
                                 
                                 // payment
-                                tableCells[1].innerHTML = formatCurrency(loanPayments[i].monthlyPayment);
+                                tableCells[1].innerHTML = 
+                                formatCurrency(loanPayments[i].monthlyPayment);
                                 
                                 // principal
-                                tableCells[2].innerHTML = formatCurrency(loanPayments[i].principalPayment);
+                                tableCells[2].innerHTML = 
+                                formatCurrency(loanPayments[i].principalPayment);
                                 
                                 // interest
-                                tableCells[3].innerHTML = formatCurrency(loanPayments[i].interestPayment);
+                                tableCells[3].innerHTML = 
+                                formatCurrency(loanPayments[i].interestPayment);
                                 
                                 // total interest
-                                tableCells[4].innerHTML = formatCurrency(loanPayments[i].totalInterest);
+                                tableCells[4].innerHTML = 
+                                formatCurrency(loanPayments[i].totalInterest);
                                 
                                 
                                 // balance
-                                // use math.abs to show absolute value of amount instead of negative number
-                                tableCells[5].innerHTML = formatCurrency(Math.abs(loanPayments[i].remainingBalance));
+                                // use math.abs to show absolute value 
+                                // of amount instead of negative number
+                                tableCells[5].innerHTML = 
+                                formatCurrency(Math.abs(loanPayments[i].remainingBalance));
                                 
                                 tableBody.appendChild(eventRow);
                             }
@@ -170,10 +183,17 @@
                             let totalCost = totalInterest + principal;
                             let monthlyPayment = loanPayments[0].monthlyPayment
 
-                            document.getElementById('monthly-payment').innerHTML = formatCurrency(monthlyPayment);
-                            document.getElementById('total-principal').innerHTML = formatCurrency(totalCost - totalInterest);
-                            document.getElementById('total-interest').innerHTML = formatCurrency(totalInterest);
-                            document.getElementById('total-cost').innerHTML = formatCurrency(totalCost);
+                            document.getElementById('monthly-payment').innerHTML = 
+                            formatCurrency(monthlyPayment);
+
+                            document.getElementById('total-principal').innerHTML = 
+                            formatCurrency(totalCost - totalInterest);
+
+                            document.getElementById('total-interest').innerHTML = 
+                            formatCurrency(totalInterest);
+
+                            document.getElementById('total-cost').innerHTML = 
+                            formatCurrency(totalCost);
                         }
 
                         // formats strings into US currency
@@ -190,13 +210,18 @@
             <div class="col-12 col-lg-4">
                 <p>The code is structured in four functions</p>
                 <h5><code>getUserInput()</code></h5>
-                <p>This function takes in the information provided by the user on the webpage when they click the "submit" button. That information is then stored and sent on to the function that does all the math calculations.</p>
+                <p>This function is what allows the user to interact with the calculator. The function waits and listen for the user to click the "Submit" button. Once the button is pressed, it takes in the information provided by the user on the App page, and first verifies that the information provided are numbers.</p>  
+                <p>After the verification is completed, if the information does not pass the check, it will prompt the user to enter numbers only. If the information does pass the check, it stores it for use in other parts of the program to use.</p>
+
                 <h5><code>calculateAmounts()</code></h5>
-                <p>This function takes the information provided by the user and validates that the user provided correct information and not letters. If the correct type of information is provided, the function handles the calculations and creates an item called an onject and stores them in a storage container called an array. The function then takes that array of objects and sends it to the next function that will then display the values as instructed.</p>
+                <p>This function receives the information stored in the <code>getUserInput()</code> function to calculate the various parts of the mortgage payment. This function will continuously calculate the information to generate the breakdown for each months payment.</p> 
+                <p>The function will never generate more information than needed because it uses the term amount to set it's limit. Once it's done breaking down the payment information for each month, it will store each piece of information with a label that it can pass on to another function to use.</p>
+
                 <h5><code>displayMortgageData()</code></h5>
-                <p>This function takes in the array passed on from the calculations and iterates through each item one at a time. It then displays each item in the correct spot on websites table as instructed.</p>
+                <p>This function takes in the labeled information from the <code>calculateAmounts()</code> function as well as the initial requested loan amount. It then takes that information places it into a template to allow the breakdown of each monthly payment to be displayed on a table on the page. This function also only works until it reaches the maximum amount of months defined by the term.</p>
+                
                 <h5><code>formatCurrency()</code></h5>
-                <p>This function converts all the number values into US Currency values instead of very long decimal points.</p>
+                <p>This function converts all the number values in the <code>displayMortgageData()</code> function into US Currency values instead of very long decimal points.</p>
             </div>
         </div>
     </main>
