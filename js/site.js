@@ -1,150 +1,107 @@
-// keep this function simple. only grab inputs
+// entry point
 function getUserInput() {
-    let loanAmount = document.getElementById('loanAmount').value;
-    let term = document.getElementById('term').value.toLocaleString(
-        'en-US', {
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-    }
-    );
-    let rate = document.getElementById('rate').value.toLocaleString(
-        'en-US', {
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-    }
-    )
+    let principal = parseFloat(document.getElementById('loanAmount').value);
+    let term = parseInt(document.getElementById('term').value);
+    let rate = parseFloat(document.getElementById('rate').value);
 
-    loanAmount = parseFloat(loanAmount);
-    term = parseFloat(term);
-    rate = parseFloat(rate);
+    if (Number.isInteger(principal) && Number.isInteger(term) && Number.isInteger(rate)) {
+        calculateAmounts(principal, term, rate);
+    } else {
+        alert('Please enter valid numbers');
+    }
 
-    calculateAmounts(loanAmount, term, rate);
 }
-// should handle calculation and validation
-function calculateAmounts(amount, term, rate) {
+
+// calculates amounts and stores them in an object
+function calculateAmounts(principal, term, rate) {
+   
 
     // total monthly payment = (amount loaned) * (rate/1200)/(1-(1 + rate/1200)(-number of months))
-    let monthlyPayment = (amount * (rate / 1200) / (1 - (1 + rate / 1200) ** (-term)));
+    let monthlyPayment = (principal * (rate / 1200)) / (1 - Math.pow(1 + rate / 1200, -term));
 
-    // remaining balance before the very first month equals the amount of the loan
-    let remainingBalance = amount;
+    let remainingBalance = principal;
+    let interestPayment = 0;
+    let totalInterest = 0;
+    let principalPayment = 0;
 
-    // interest payment = previous remaining balance * rate/1200
-    let interestPayment = remainingBalance * (rate / 1200)
+    let loanPayments = [];
 
-    // principal payment = total monthly payment - interest payment
-    let principalPayment = monthlyPayment - interestPayment;
+    for (let month = 1; month <= term; month++) {
+        // interest payment = previous remaining balance * rate/1200
+        interestPayment = remainingBalance * (rate / 1200);
 
-    // at end of each month, remaining balance = previous remaining balance - principal payments
-    let newRemainBalance = remainingBalance - principalPayment;
+        // total interest amount
+        totalInterest += interestPayment;
 
-// refactor property naming case. aim for dot notation
-    let loanParts = {
-        'Loan Amount': amount,
-        'Loan Term': term,
-        'Loan Interest Rate': rate,
-        'Monthly Payment': monthlyPayment,
-        'Remaining Balance': remainingBalance,
-        'Interest Payment': interestPayment,
-        'Principal Payment': principalPayment,
-        'New Remaining Balance': newRemainBalance
+        // principal payment = total monthly payment - interest payment
+        principalPayment = monthlyPayment - interestPayment;
+
+        // at end of each month, remaining balance = previous remaining balance - principal payments
+        remainingBalance -= principalPayment
+
+        let payment = {
+            month: month,
+            monthlyPayment: monthlyPayment,
+            interestPayment: interestPayment,
+            totalInterest: totalInterest,
+            principalPayment: principalPayment,
+            remainingBalance: remainingBalance
+        }
+
+        loanPayments.push(payment);
     }
-    displayBalances(loanParts);
-    displayPaymentData(loanParts);
+    
+    displayMortgageData(loanPayments, principal);
 
 }
-// keep param and argument name the same
-// display functions should only be displaying and not calculating
-function displayBalances(balancesArr) {
 
-    document.getElementById('monthly-payment').innerHTML = balancesArr['Monthly Payment'].toLocaleString(
-        'en-US', {
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-    }
-    );
-    document.getElementById('total-principal').innerHTML = (balancesArr['Principal Payment'] * balancesArr['Loan Term']).toLocaleString(
-        'en-US', {
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-    }
-    );
-    document.getElementById('total-interest').innerHTML = (balancesArr['Interest Payment'] * balancesArr['Loan Term']).toLocaleString(
-        'en-US', {
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-    }
-    );
-    document.getElementById('total-cost').innerHTML = ((balancesArr['Principal Payment'] * balancesArr['Loan Term']) + (balancesArr['Interest Payment'] * balancesArr['Loan Term'])).toLocaleString(
-        'en-US', {
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-    }
-    );
-}
-// keep param and argument name the same
-// display functions should only be displaying and not calculating
-function displayPaymentData(balancesArr) {
+// iterates through the array that's passed in and displays the values on the screen
+function displayMortgageData(loanPayments, principal) {
     let tableBody = document.getElementById('mortgageTableBody');
     const tableRowTemplate = document.getElementById('mortgageTableRowTemplate');
-    let totalInterest = 0;
-
+    
     tableBody.innerHTML = '';
 
-    for (let i = 1; i <= balancesArr['Loan Term']; i++) {
+    for (let i = 0; i <= loanPayments.length - 1; i++) {
         let eventRow = document.importNode(tableRowTemplate.content, true);
         let tableCells = eventRow.querySelectorAll('td');
-
+        
         // month
-        tableCells[0].innerHTML = i;
-
+        tableCells[0].innerHTML = i + 1;
+        
         // payment
-        tableCells[1].innerHTML = balancesArr['Monthly Payment'].toLocaleString(
-            'en-US', {
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0
-        }
-        );
-
+        tableCells[1].innerHTML = formatCurrency(loanPayments[i].monthlyPayment);
+        
         // principal
-        balancesArr['Principal Payment'] = (balancesArr['Monthly Payment'] - (balancesArr['Remaining Balance'] * (balancesArr['Loan Interest Rate'] / 1200)));
-        tableCells[2].innerHTML = balancesArr['Principal Payment'].toLocaleString(
-            'en-US', {
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0
-        }
-        );
-
+        tableCells[2].innerHTML = formatCurrency(loanPayments[i].principalPayment);
+        
         // interest
-        balancesArr['Interest Payment'] = balancesArr['Remaining Balance'] * (balancesArr['Loan Interest Rate'] / 1200);
-        tableCells[3].innerHTML = balancesArr['Interest Payment'].toLocaleString(
-            'en-US', {
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0
-        }
-        );
+        tableCells[3].innerHTML = formatCurrency(loanPayments[i].interestPayment);
         
         // total interest
-        totalInterest += parseFloat(balancesArr['Interest Payment']);
-        tableCells[4].innerHTML = totalInterest.toLocaleString(
-            'en-US', {
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0
-        }
-        );
-        
+        tableCells[4].innerHTML = formatCurrency(loanPayments[i].totalInterest);
         
         // balance
-        // make sure value is absolute
-        balancesArr['New Remaining Balance'] = balancesArr['Remaining Balance'] - balancesArr['Principal Payment'];
-        tableCells[5].innerHTML = balancesArr['New Remaining Balance'].toLocaleString(
-            'en-US', {
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0
-        }
-        ); 
+        // use math.abs to show absolute value of amount instead of negative number
+        tableCells[5].innerHTML = formatCurrency(Math.abs(loanPayments[i].remainingBalance));
         
         tableBody.appendChild(eventRow);
-        balancesArr['Remaining Balance'] = balancesArr['New Remaining Balance'];
     }
+    
+    let totalInterest = loanPayments[loanPayments.length - 1].totalInterest;
+    let totalCost = totalInterest + principal;
+    let monthlyPayment = loanPayments[0].monthlyPayment
+
+    document.getElementById('monthly-payment').innerHTML = formatCurrency(monthlyPayment);
+    document.getElementById('total-principal').innerHTML = formatCurrency(totalCost - totalInterest);
+    document.getElementById('total-interest').innerHTML = formatCurrency(totalInterest);
+    document.getElementById('total-cost').innerHTML = formatCurrency(totalCost);
 }
+
+// formats strings into US currency
+function formatCurrency(value) {
+    return Number(value).toLocaleString('en-us', {
+        style: 'currency',
+        currency: 'USD'
+    });
+} 

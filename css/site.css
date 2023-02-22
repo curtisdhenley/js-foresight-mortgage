@@ -1,6 +1,11 @@
 :root {
     --ch-primary-color: #ff4057;
-    --ch-secondary-color: #dcdcdc;
+    --ch-primary-color-dark: #ab0215;
+    --ch-primary-color-light: #fae2e5;
+    --ch-secondary-color: #999999;
+    --ch-secondary-color-light: #f1f0f0;
+    --ch-light-gray: #d9d9d9;
+    --ch-light-color: #eeeeee;
     --ch-highlight-color: rgb(11, 180, 143);
 
     --ch-nav-toggler-color: var(--ch-highlight-color);
@@ -26,6 +31,17 @@
     --ch-black-rgb: 0, 0, 0;
     --ch-body-color-rgb: 33, 37, 41;
     --ch-body-bg-rgb: 255, 255, 255;
+
+    --cf-primaryColor: #0869b8;
+        --cf-primaryColorDark: #002a4e;
+        --cf-primaryColorLight: #edf5fc;
+        --cf-secondaryColor: #fff0d9;
+        --cf-secondaryColorLight: #FFF8EC;
+        --cf-dark-color: #131313;
+        --cf-light-gray: #d9d9d9;
+        --cf-light-color: #eeeeee;
+        --cf-title-font: 'Fira Sans', sans-serif;
+        --cf-body-font: 'Roboto', sans-serif;
 }
 
 
