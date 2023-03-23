@@ -75,12 +75,13 @@
                 <h1>Foresight Mortgage</h1>
                 <h2>Loan Calculator</h2>
             </div>
-            <div class="col-12 col-md-4 border border-dark border-2">
+            <div class="col-12 col-md-3 border border-dark border-2 me-3">
                 <form action="#">
                     <div class="row flex-column">
-                        <div class="col col-md-5">
+                        <div class="col col-md-6">
                             <label class="fs-5 col-form-label" for="loanAmount">Loan Amount</label>
-                            <input class="form-control" type="number" placeholder="Loan Amount" id="loanAmount" required>
+                            <input class="form-control" type="number" placeholder="Loan Amount" id="loanAmount"
+                                required>
                         </div>
                         <div class="col col-md-4">
                             <label class="fs-5 col-form-label" for="term">Term (Months)</label>
@@ -96,11 +97,11 @@
                     </div>
                 </form>
             </div>
-            <div class="col-12 col-md-7 border border-dark border-2">
+            <div class="col-12 col-md-8 border border-dark border-2">
                 <h2 class="text-center">Your Monthly Payments</h2>
                 <div class="text-center mt-4 display-5">
                     <!-- calculated payment will go here -->
-                    <span id="monthly-payment">0.00</span> 
+                    <span id="monthly-payment">0.00</span>
                 </div>
                 <div class="d-flex justify-content-between">
                     <p>Total Principal</p>
@@ -122,22 +123,26 @@
                 </div>
             </div>
         </div>
-        <div class="table-responsive mt-3">
-            <table class="table table-striped border border-2">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Month</th>
-                        <th>Payment</th>
-                        <th>Principal</th>
-                        <th>Interest</th>
-                        <th>Total Interest</th>
-                        <th>Balance</th>
-                    </tr>
-                </thead>
-                <tbody id="mortgageTableBody">
-                    <!-- table template goes here -->
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped border border-2">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Month</th>
+                                <th>Payment</th>
+                                <th>Principal</th>
+                                <th>Interest</th>
+                                <th>Total Interest</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mortgageTableBody">
+                            <!-- table template goes here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </main>
 
