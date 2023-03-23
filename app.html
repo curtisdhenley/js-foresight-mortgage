@@ -70,27 +70,27 @@
     </header>
 
     <main class="content container">
-        <div class="row d-flex justify-content-between">
+        <div class="row d-flex justify-content-evenly">
             <div class="text-center">
                 <h1>Foresight Mortgage</h1>
                 <h2>Loan Calculator</h2>
             </div>
             <div class="col-12 col-md-4 border border-dark border-2">
                 <form action="#">
-                    <div class="row align-items-center">
-                        <div class="col">
+                    <div class="row flex-column">
+                        <div class="col col-md-5">
                             <label class="fs-5 col-form-label" for="loanAmount">Loan Amount</label>
                             <input class="form-control" type="number" placeholder="Loan Amount" id="loanAmount" required>
                         </div>
-                        <div class="col">
+                        <div class="col col-md-4">
                             <label class="fs-5 col-form-label" for="term">Term (Months)</label>
                             <input class="form-control" type="number" placeholder="Term" id="term" required>
                         </div>
-                        <div class="col">
+                        <div class="col col-md-4">
                             <label class="fs-5 col-form-label" for="rate">Interest Rate</label>
                             <input class="form-control" type="number" placeholder="Rate" id="rate" required>
                         </div>
-                        <div class="mt-5 text-end">
+                        <div class="text-end mb-3">
                             <button type="button" class="btn btn-secondary" onclick="getUserInput()">Calculate</button>
                         </div>
                     </div>
@@ -146,7 +146,13 @@
             <div class="col container">
                 <div class="row align-items-center gy-2">
                     <div class="col d-flex justify-content-center justify-content-md-start order-lg-first order-last">
-                        Built by - Curtis Henley &COPY; 2023
+                        <script>document.write(new Date().getFullYear())</script>
+                        &copy; built by
+                        <a href="https://curtishenley.dev/" target="_blank" class="text-decoration-none">
+                            <strong class="hero-name">
+                                Curtis Henley
+                            </strong>
+                        </a>
                     </div>
                     <div class="col d-flex justify-content-center my-3">
                         <img src="/img/curtis-henley-low-resolution-logo-white-on-transparent-background.png"
